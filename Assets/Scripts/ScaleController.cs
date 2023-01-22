@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
-using Unity.XR.CoreUtils;
 
 namespace UnityEngine.XR.ARFoundation.Samples
 {
     /// <summary>
-    /// Sets the scale of the XROrigin according to the value of a UI.Slider.
+    /// Sets the scale of the ARSessionOrigin according to the value of a UI.Slider.
     /// </summary>
-    [RequireComponent(typeof(XROrigin))]
+    [RequireComponent(typeof(ARSessionOrigin))]
     public class ScaleController : MonoBehaviour
     {
         [SerializeField]
@@ -76,18 +75,18 @@ namespace UnityEngine.XR.ARFoundation.Samples
         {
             get
             {
-                return m_Origin.transform.localScale.x;
+                return m_SessionOrigin.transform.localScale.x;
             }
             set
             {
-                m_Origin.transform.localScale = Vector3.one * value;
+                m_SessionOrigin.transform.localScale = Vector3.one * value;
                 UpdateText();
             }
         }
 
         void Awake()
         {
-            m_Origin = GetComponent<XROrigin>();
+            m_SessionOrigin = GetComponent<ARSessionOrigin>();
         }
 
         void OnEnable()
@@ -103,6 +102,6 @@ namespace UnityEngine.XR.ARFoundation.Samples
                 text.text = "Scale: " + scale;
         }
 
-        XROrigin m_Origin;
+        ARSessionOrigin m_SessionOrigin;
     }
 }

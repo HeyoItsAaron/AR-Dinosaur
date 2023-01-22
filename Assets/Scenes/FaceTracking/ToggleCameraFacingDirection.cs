@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.XR.ARFoundation;
 
 namespace UnityEngine.XR.ARFoundation.Samples
 {
-    public class ToggleCameraFacingDirection : PressInputBase
+    public class ToggleCameraFacingDirection : MonoBehaviour
     {
         [SerializeField]
         ARCameraManager m_CameraManager;
@@ -24,19 +23,21 @@ namespace UnityEngine.XR.ARFoundation.Samples
             set => m_Session = value;
         }
 
-        protected override void OnPressBegan(Vector3 position)
+        void Update()
         {
             if (m_CameraManager == null || m_Session == null)
                 return;
 
-
-            if (m_CameraManager.requestedFacingDirection == CameraFacingDirection.User)
+            if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
             {
-                m_CameraManager.requestedFacingDirection = CameraFacingDirection.World;
-            }
-            else
-            {
-                m_CameraManager.requestedFacingDirection = CameraFacingDirection.User;
+                if (m_CameraManager.requestedFacingDirection == CameraFacingDirection.User)
+                {
+                    m_CameraManager.requestedFacingDirection = CameraFacingDirection.World;
+                }
+                else
+                {
+                    m_CameraManager.requestedFacingDirection = CameraFacingDirection.User;
+                }
             }
         }
     }

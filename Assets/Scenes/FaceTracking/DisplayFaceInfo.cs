@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using Unity.XR.CoreUtils;
 
 namespace UnityEngine.XR.ARFoundation.Samples
 {
     [RequireComponent(typeof(ARSession))]
     [RequireComponent(typeof(ARFaceManager))]
-    [RequireComponent(typeof(XROrigin))]
+    [RequireComponent(typeof(ARSessionOrigin))]
     public class DisplayFaceInfo : MonoBehaviour
     {
         [SerializeField]
@@ -66,7 +65,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
         {
             m_FaceManager = GetComponent<ARFaceManager>();
             m_Session = GetComponent<ARSession>();
-            var camera = GetComponent<XROrigin>().Camera;
+            var camera = GetComponent<ARSessionOrigin>().camera;
             m_CameraManager = camera ? camera.GetComponent<ARCameraManager>() : null;
         }
 

@@ -3,7 +3,6 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using Unity.XR.CoreUtils;
 
 namespace UnityEngine.XR.ARFoundation.Samples
 {
@@ -18,7 +17,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
     /// at each detected region.
     /// </summary>
     [RequireComponent(typeof(ARFaceManager))]
-    [RequireComponent(typeof(XROrigin))]
+    [RequireComponent(typeof(ARSessionOrigin))]
     public class ARCoreFaceRegionManager : MonoBehaviour
     {
         [SerializeField]
@@ -35,7 +34,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         ARFaceManager m_FaceManager;
 
-        XROrigin m_Origin;
+        ARSessionOrigin m_SessionOrigin;
 
     #if UNITY_ANDROID && !UNITY_EDITOR
         NativeArray<ARCoreFaceRegionData> m_FaceRegions;
@@ -47,7 +46,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
         void Start()
         {
             m_FaceManager = GetComponent<ARFaceManager>();
-            m_Origin = GetComponent<XROrigin>();
+            m_SessionOrigin = GetComponent<ARSessionOrigin>();
     #if UNITY_ANDROID && !UNITY_EDITOR
             m_InstantiatedPrefabs = new Dictionary<TrackableId, Dictionary<ARCoreFaceRegion, GameObject>>();
     #endif
@@ -78,7 +77,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
                     GameObject go;
                     if (!regionGos.TryGetValue(regionType, out go))
                     {
-                        go = Instantiate(m_RegionPrefab, m_Origin.TrackablesParent);
+                        go = Instantiate(m_RegionPrefab, m_SessionOrigin.trackablesParent);
                         regionGos.Add(regionType, go);
                     }
 

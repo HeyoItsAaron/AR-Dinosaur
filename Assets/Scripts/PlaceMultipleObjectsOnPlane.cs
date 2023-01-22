@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
+using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
 namespace UnityEngine.XR.ARFoundation.Samples
 {
     [RequireComponent(typeof(ARRaycastManager))]
-    public class PlaceMultipleObjectsOnPlane : PressInputBase
+    public class PlaceMultipleObjectsOnPlane : MonoBehaviour
     {
         [SerializeField]
         [Tooltip("Instantiates this prefab on a plane at the touch location.")]
@@ -35,23 +36,30 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
 
-        protected override void Awake()
+        void Awake()
         {
-            base.Awake();
             m_RaycastManager = GetComponent<ARRaycastManager>();
         }
 
-        protected override void OnPress(Vector3 position)
+        void Update()
         {
-            if (m_RaycastManager.Raycast(position, s_Hits, TrackableType.PlaneWithinPolygon))
+            if (Input.touchCount > 0)
             {
-                Pose hitPose = s_Hits[0].pose;
+                Touch touch = Input.GetTouch(0);
 
-                spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
-
-                if (onPlacedObject != null)
+                if (touch.phase == TouchPhase.Began)
                 {
-                    onPlacedObject();
+                    if (m_RaycastManager.Raycast(touch.position, s_Hits, TrackableType.PlaneWithinPolygon))
+                    {
+                        Pose hitPose = s_Hits[0].pose;
+
+                        spawnedObject = Instantiate(m_PlacedPrefab, hitPose.position, hitPose.rotation);
+
+                        if (onPlacedObject != null)
+                        {
+                            onPlacedObject();
+                        }
+                    }
                 }
             }
         }

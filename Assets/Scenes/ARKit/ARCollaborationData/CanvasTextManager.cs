@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Unity.XR.CoreUtils;
 
 namespace UnityEngine.XR.ARFoundation.Samples
 {
@@ -35,10 +34,10 @@ namespace UnityEngine.XR.ARFoundation.Samples
                 var canvas = m_TextElement.GetComponentInParent<Canvas>();
                 if (canvas)
                 {
-                    var sessionOrigin = FindObjectOfType<XROrigin>();
-                    if (sessionOrigin && sessionOrigin.Camera)
+                    var sessionOrigin = FindObjectOfType<ARSessionOrigin>();
+                    if (sessionOrigin && sessionOrigin.camera)
                     {
-                        canvas.worldCamera = sessionOrigin.Camera;
+                        canvas.worldCamera = sessionOrigin.camera;
                     }
                 }
             }
