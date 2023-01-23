@@ -127,5 +127,23 @@ namespace UnityEngine.XR.ARFoundation.Samples
         static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
 
         ARRaycastManager m_RaycastManager;
+
+
+        public void TogglePlaceOnPlane()
+        {
+            enabled = !enabled;
+        }
+        public void TurnOffPlaceOnPlane()
+        {
+            enabled = false;
+        }
+        public void TurnOnPlaceOnPlane()
+        {
+            enabled = true;
+        }
+        public void ResetDino()
+        {
+            Destroy(spawnedObject);
+        }
     }
 }
