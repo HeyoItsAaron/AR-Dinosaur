@@ -17,11 +17,24 @@ namespace UnityEngine.XR.ARFoundation.Samples
     {
         [SerializeField]
         [Tooltip("Instantiates this prefab on a plane at the touch location.")]
+
+        //GameObject[] placedPrefabArray;
+        //int arrayIndex;
+
         GameObject m_PlacedPrefab;
+
+        //Vector3 spawnedPositionInAR;
+        //Quaternion spawnedRotationInAR;
 
         /// <summary>
         /// The prefab to instantiate on touch.
         /// </summary>
+
+        //public GameObject[] PlacedPrefabArray
+        //{
+        //    get { return placedPrefabArray; }
+        //    set { placedPrefabArray = value; }
+        //}
         public GameObject placedPrefab
         {
             get { return m_PlacedPrefab; }
@@ -36,7 +49,46 @@ namespace UnityEngine.XR.ARFoundation.Samples
         void Awake()
         {
             m_RaycastManager = GetComponent<ARRaycastManager>();
+
+            //checks if tehre's a stored preference for prefab index
+            //if (!PlayerPrefs.HasKey("myPreferredPrefab"))
+            //    PlayerPrefs.SetInt("myPreferredPrefab", 0);
+
+            //arrayIndex = PlayerPrefs.GetInt("myPreferredPrefab");
+            //placedPrefab = placedPrefabArray[arrayIndex];
         }
+
+        //public void NextPrefabInArray()
+        //{
+        //    if (arrayIndex == PlacedPrefabArray.Length - 1)
+        //        arrayIndex = 0;
+        //    else
+        //        arrayIndex += 1;
+        //    //PlayerPrefs.SetInt("myPreferredPrefab", arrayIndex);
+        //    placedPrefab = PlacedPrefabArray[arrayIndex];
+        //    RespawnSpawnedObject();
+        //}
+        //public void PreviousPrefabInArray()
+        //{
+        //    if (arrayIndex == 0)
+        //        arrayIndex = PlacedPrefabArray.Length - 1;
+        //    else
+        //        arrayIndex -= 1;
+        //    //PlayerPrefs.SetInt("myPreferredPrefab", arrayIndex);
+        //    placedPrefab = PlacedPrefabArray[arrayIndex];
+        //    RespawnSpawnedObject();
+        //}
+
+        //void RespawnSpawnedObject()
+        //{
+        //    if (spawnedObject == null)
+        //    {
+        //        spawnedPositionInAR = spawnedObject.gameObject.transform.position;
+        //        spawnedRotationInAR = spawnedObject.gameObject.transform.rotation;
+        //        spawnedObject = null;
+        //        spawnedObject = Instantiate(m_PlacedPrefab, spawnedPositionInAR, spawnedRotationInAR);
+        //    }
+        //}
 
         bool TryGetTouchPosition(out Vector2 touchPosition)
         {
